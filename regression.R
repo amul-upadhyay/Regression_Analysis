@@ -114,6 +114,93 @@ linear_model
 summary(linear_model)
 
 
+set.seed(200)
+
+# choose a random sample from 1:all records in cars dataset, 80% of rows
+
+random_sample <- sample(1:nrow(cars), 0.8 * nrow(cars))
+
+# model training data
+
+training_data <- cars[random_sample,]
+
+# model testing data
+
+testing_data <- cars[-random_sample,]
+
+
+training_data
+
+testing_data
+
+nrow(training_data)
+nrow(testing_data)
+
+# Build the model on training data
+
+lr_model <- lm(dist ~ speed, data = training_data)
+
+summary(lr_model)
+
+distance_predicted <- predict(lr_model, testing_data)
+
+distance_predicted
+
+actual_predicted <- data.frame(cbind(actuals = testing_data$dist, predicted = distance_predicted))
+
+
+head(actual_predicted)
+
+correlation_accuracy <- cor(actual_predicted)
+
+correlation_accuracy
+
+
+# min -max accuracy
+
+min_max_accuracy <- mean(apply(actual_predicted, 1, min)/ 
+                                 apply(actual_predicted, 1, max))
+
+# MAPE
+
+mape <- mean(abs((actual_predicted$predicted - actual_predicted$actuals))/
+                     actual_predicted$actuals)
+
+# min_max_accuracy higer the better
+# mape lower the better
+
+min_max_accuracy
+mape
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
