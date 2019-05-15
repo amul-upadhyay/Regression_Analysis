@@ -87,6 +87,32 @@ plot(density(cars$speed),
      sub = paste("Skewness :", round(e1071::skewness(cars$speed), 2)))
 
 
+# Fill the are within the density plot to red
+
+polygon(density(cars$speed), col = "red")
+
+
+# Density plot for dis
+
+plot(density(cars$dist),
+     main = "Density",
+     ylab = "Frequency",
+     sub = paste("Skewness :", round(e1071::skewness(cars$dist), 2)))
+
+
+# Fill the are within the density plot to red
+
+polygon(density(cars$dist), col = "red")
+
+cor(cars$speed, cars$dist)
+
+
+# Build the model on full data
+
+linear_model <- lm(dist ~ speed, data = cars)
+linear_model
+summary(linear_model)
+
 
 
 
